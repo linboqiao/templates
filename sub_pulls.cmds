@@ -1,0 +1,3 @@
+git subtree pull -P "iNSFC" git@github.com:YimianDai/iNSFC.git master; git push
+git subtree pull -P "nudtpaper" git@github.com:liubenyuan/nudtpaper.git master; git push
+

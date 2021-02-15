@@ -1,7 +1,6 @@
-%!TEX program = xelatex 
 \documentclass[a4paper,zihao=-4]{article}
-\usepackage[UTF8,punct,linespread=1.56]{ctex}
 % \documentclass[a4paper,cs4size,UTF8,punct,linespread=1.56]{ctexart}
+%\documentclass[fontset=ubuntu,UTF8,a4paper]{ctexart}
 \pagestyle{empty} % 第二页以后页码空白
 \usepackage[a4paper, left = 3.2cm, right = 3.2cm, top = 2.54cm, bottom = 2.54cm]{geometry}
 \usepackage{xcolor}
@@ -22,16 +21,11 @@
 \setlist[enumerate]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
 % \setitemize[1]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
 \setlist[itemize]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
-\usepackage{fontspec}
-\setmainfont{Times New Roman}
+
 % \usepackage{minted}   % For syntax highlighting
 % \usemintedstyle{friendly}
 \usepackage{setspace} 
 \usepackage{caption}
-\DeclareCaptionFont{capfont}{\kaishu\zihao{-4}\selectfont} % Caption font
-\DeclareCaptionFont{subfont}{\kaishu\zihao{5}\selectfont} % Sub-caption font
-\captionsetup{font = capfont}
-\captionsetup[subfigure]{font = subfont}
 \captionsetup[figure]{labelsep=space} % 空格 space；点 period；冒号 colon
 \captionsetup[table]{labelsep=space}  % 空格 space；点 period；冒号 colon
 \usepackage[square,numbers,sort&compress]{natbib}   % For Reference
@@ -39,15 +33,37 @@
 \setlength{\bibsep}{1pt plus 0.3ex}
 \usepackage{titlesec}
 \titleformat{\subsubsection}[block]{\hspace{3em}}{\thesubsubsection}{1em}{}
-\usepackage{insfc}
 
+\usepackage{ifxetex}
+\ifxetex
+\usepackage[UTF8,punct,linespread=1.56]{ctex}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\else
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\newcommand{\kaishu}{}
+\newcommand{\songti}{}
+\newcommand{\setmainfont}[1]{}
+\newcommand{\zihao}[1]{\fontsize{12pt}{0}} 
+% \zihao{4}, \zihao{-4}
+\fi
+\DeclareCaptionFont{capfont}{\kaishu\zihao{-4}\selectfont} % Caption font
+\DeclareCaptionFont{subfont}{\kaishu\zihao{5}\selectfont} % Sub-caption font
+\captionsetup{font = capfont}
+\captionsetup[subfigure]{font = subfont}
+\usepackage{insfc}
 
 
 \graphicspath{{images/}}   % 设置图片所存放的目录
 
 \begin{document}
 
+\ifxetex
 \kaishu
+\else
+\begin{CJK*}{UTF8}{gbsn}
+\fi
 
 % Decrease space above and below equations
 \setlength{\abovedisplayskip}{0pt}
@@ -58,7 +74,7 @@
 % \title{报告正文}
 % \maketitle
 \begin{center}
-	{\kaishu \zihao{2} \textbf{报告正文} \vspace{-3ex}}
+{\kaishu \zihao{2} \textbf{报告正文} \vspace{-3ex}}
 \end{center}  
 
 \thispagestyle{empty} 　　　% 首页页码空白
@@ -345,5 +361,11 @@ demo.tex 用 LuaLaTeX 也可以编译通过，但标题加粗部分会不再是�
 
 \NsfcSection{4}{}{其他。}
 
+
+\ifxetex
+%pass
+\else
+\end{CJK*}
+\fi
 
 \end{document}
